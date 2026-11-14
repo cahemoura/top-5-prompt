@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Top 5 Prompts</title>
+<style>
+  :root {
+    --bg: #f6f3ee; --text: #1f1f1f; --muted: #6b6b6b;
+    --accent: #b4552d; --card: #ffffff; --line: #e4ded4; --code: #f1ece4;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #151514; --text: #ecebe8; --muted: #9c9a95;
+      --accent: #e8875c; --card: #1e1e1c; --line: #2e2d2a; --code: #262522;
+    }
+  }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { height: 100%; overflow: hidden; }
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.45;
+  }
+  .slide {
+    position: absolute; inset: 0; height: 100dvh;
+    display: none; flex-direction: column; justify-content: center;
+    max-width: 760px; margin: 0 auto; padding: 24px 16px 72px;
+  }
+  .slide.on { display: flex; }
+  .num { color: var(--accent); font-weight: 700; font-size: .85rem; letter-spacing: .08em; text-transform: uppercase; }
+  h1 { font-size: clamp(1.6rem, 5vw, 2.4rem); line-height: 1.15; margin: .3rem 0 1rem; }
+  h2 { font-size: clamp(1.3rem, 4vw, 1.8rem); margin: .3rem 0 1.2rem; }
+  .prompt {
+    background: var(--code); border-left: 4px solid var(--accent);
+    padding: .8rem 1rem; border-radius: 6px;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: clamp(.82rem, 2.4vw, .95rem); margin-bottom: 1.2rem;
+  }
+  .prompt + .prompt { margin-top: -.6rem; }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 560px) { .row { grid-template-columns: 1fr; } }
+  .box { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: .8rem 1rem; }
+  .box b { display: block; font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-bottom: .3rem; }
+  .box p { font-size: .95rem; }
+  .intro p { color: var(--muted); font-size: 1.05rem; max-width: 34em; }
+  .intro ol { margin-top: 1.2rem; padding-left: 1.2rem; }
+  .intro li { margin: .25rem 0; }
+  nav {
+    position: fixed; left: 0; right: 0; bottom: 0; height: 56px;
+    display: flex; align-items: center; justify-content: center; gap: 16px;
+    border-top: 1px solid var(--line); background: var(--bg);
+  }
+  nav button {
+    background: none; border: 1px solid var(--line); color: var(--text);
+    border-radius: 6px; padding: .35rem .9rem; font: inherit; cursor: pointer;
+  }
+  nav button:hover { border-color: var(--accent); color: var(--accent); }
+  #pos { color: var(--muted); font-variant-numeric: tabular-nums; min-width: 4ch; text-align: center; }
+</style>
+</head>
+<body>
+
+<section class="slide intro on">
+  <span class="num">Livro de receitas</span>
+  <h1>5 prompts que me ensinaram a usar o Claude Code</h1>
+  <p>Texto exato, o que aconteceu, a lição. Uma tela por prompt. Use ← → ou os botões.</p>
+  <ol>
+    <li>O primeiro arquivo</li>
+    <li>O arquivo vazio</li>
+    <li>Dois pedidos num só</li>
+    <li>O prompt cortado</li>
+    <li>O prompt com formato</li>
+  </ol>
+</section>
+
+<section class="slide">
+  <span class="num">01 · O primeiro arquivo</span>
+  <h2>Comece pequeno para ver como funciona</h2>
+  <div class="prompt">make a file called hello.txt that says hello</div>
+  <div class="row">
+    <div class="box"><b>O que o Claude fez</b><p>Criou <code>hello.txt</code> com a palavra “hello”. Depois rodei <code>ls</code> e <code>cat hello.txt</code> para conferir.</p></div>
+    <div class="box"><b>O que aprendi</b><p>Nome do arquivo + conteúdo = pedido completo. E sempre verifique o resultado você mesmo.</p></div>
+  </div>
+</section>
+
+<section class="slide">
+  <span class="num">02 · O arquivo vazio</span>
+  <h2>Quando der errado, diga o que esperava</h2>
+  <div class="prompt">write a poem about the sea in a file called poem.txt</div>
+  <div class="prompt">the file was created but it's empty - I expected the poem</div>
+  <div class="row">
+    <div class="box"><b>O que o Claude fez</b><p>Na primeira vez o arquivo saiu vazio. Com a correção, escreveu “The Sea”, quatro estrofes rimadas.</p></div>
+    <div class="box"><b>O que aprendi</b><p>Uma boa correção descreve o que aconteceu e o que eu esperava. Não precisa recomeçar do zero.</p></div>
+  </div>
+</section>
+
+<section class="slide">
+  <span class="num">03 · Dois pedidos num só</span>
+  <h2>Agrupe tarefas relacionadas</h2>
+  <div class="prompt">add a README.md describing this project, and a .gitignore</div>
+  <div class="row">
+    <div class="box"><b>O que o Claude fez</b><p>Leu a pasta, escreveu um README com tabela dos arquivos e criou um <code>.gitignore</code>, tudo de uma vez.</p></div>
+    <div class="box"><b>O que aprendi</b><p>“Descreva este projeto” funciona porque o Claude lê o que já existe. Não preciso explicar o que ele pode ver.</p></div>
+  </div>
+</section>
+
+<section class="slide">
+  <span class="num">04 · O prompt cortado</span>
+  <h2>Faltou informação? Ele preenche com marcadores</h2>
+  <div class="prompt">make a file called index.html - a simple one-page website about me, with my name as a</div>
+  <div class="row">
+    <div class="box"><b>O que o Claude fez</b><p>Mandei a frase pela metade. Mesmo assim saiu um site com tema claro/escuro e “Your Name” no lugar do meu nome.</p></div>
+    <div class="box"><b>O que aprendi</b><p>Revise antes de enviar. O que eu não disser, o Claude não tem como adivinhar: vira texto provisório.</p></div>
+  </div>
+</section>
+
+<section class="slide">
+  <span class="num">05 · O prompt com formato</span>
+  <h2>Defina a estrutura de cada item</h2>
+  <div class="prompt">escreva um arquivo chamado cheatsheet.md com os 10 comandos de shell que um iniciante deveria aprender primeiro. para cada um, dê o comando, uma linha sobre o que ele faz e um exemplo real de quando eu usaria.</div>
+  <div class="row">
+    <div class="box"><b>O que o Claude fez</b><p>Dez comandos, cada um com “o que faz”, “quando usar” e exemplo. Ainda incluiu avisos sobre <code>rm</code> e atalhos bônus.</p></div>
+    <div class="box"><b>O que aprendi</b><p>Quantidade + público + formato de cada item = o melhor resultado até agora. Escrever em português também funciona.</p></div>
+  </div>
+</section>
+
+<nav>
+  <button id="prev" aria-label="Anterior">←</button>
+  <span id="pos"></span>
+  <button id="next" aria-label="Próximo">→</button>
+</nav>
+
+<script>
+  const slides = [...document.querySelectorAll('.slide')];
+  let i = 0;
+  function show(n) {
+    i = Math.max(0, Math.min(slides.length - 1, n));
+    slides.forEach((s, k) => s.classList.toggle('on', k === i));
+    document.getElementById('pos').textContent = (i + 1) + '/' + slides.length;
+  }
+  document.getElementById('prev').onclick = () => show(i - 1);
+  document.getElementById('next').onclick = () => show(i + 1);
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === ' ') show(i + 1);
+    if (e.key === 'ArrowLeft') show(i - 1);
+  });
+  let x0 = null;
+  document.addEventListener('touchstart', e => x0 = e.touches[0].clientX);
+  document.addEventListener('touchend', e => {
+    if (x0 === null) return;
+    const dx = e.changedTouches[0].clientX - x0;
+    if (Math.abs(dx) > 40) show(i + (dx < 0 ? 1 : -1));
+    x0 = null;
+  });
+  show(0);
+</script>
+</body>
+</html>
